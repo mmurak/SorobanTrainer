@@ -14,6 +14,7 @@ https://mmurak.github.io/SorobanTrainer/Resources/帰除法解説.sbk
 《帰除法による運指をひたすら練習するための練習問題100題》
 https://mmurak.github.io/SorobanTrainer/Resources/kijoho100.sbk
 
+謝辞： このウェブアプリは滋賀大学の中川雅央先生が開発された「ウェブそろばん」（ https://www.biwako.shiga-u.ac.jp/sensei/mnaka/ut/soroban.html ）をベースに機能を追加したものです。　公開許諾を頂いた中川先生にこの場を借りて感謝いたします。
 --------------------------------------------------------------------------------
 
 Soroban/abacus training web application
@@ -24,3 +25,5 @@ https://mmurak.github.io/SorobanTrainer/index.html
 If you're learning division method by Kijoho, you could try these daunting exercise file.  ;-)
 (Just download exercise file from https://mmurak.github.io/SorobanTrainer/Resources/kijoho100.sbk and open with the web app.
  Don't worry, this file is just a TXT file, so you can browse it using your favourite editor.)
+
+Credit: This web app is based on "Web Soroban" created by Masao Nakagawa (Shiga University).  I am grateful to as Prof. Nakagawa, who gave me permission to publish this program.
