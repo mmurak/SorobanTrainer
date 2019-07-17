@@ -1,0 +1,60 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes">
+<meta name="keywords" content="算盤,JavaScript">
+<meta name="description" content="画面上で計算できます。">
+<meta name="originalAuthor" content="中川雅央（滋賀大学）,Masao NAKAGAWA">
+<meta name="modifiedBy" content="村上雅章,Masaaki MURAKAMI">
+<link rel="icon" href="soroban/sorobangreen.jpeg">
+<title>Soroban Viewer</title>
+<script language="JavaScript" src="./soroban/soropanel.js"> 
+</script>
+
+</head>
+<body onload="drawAbacus(1,4,19,3);">
+  <audio id="se_soroban" preload="auto">
+    <source src="./soroban/soroban.mp3" type="audio/mp3">
+  </audio>
+
+  <form>
+  <input type="radio" name="type" value="h1e4" onclick="changeType(1, 4, 3);" checked>Modern(1:4)
+  <input type="radio" name="type" value="h1e5" onclick="changeType(1, 5, 3);">Classic phase III (1:5)
+  <input type="radio" name="type" value="h1e5" onclick="changeType(1, 5, 4);">Classic phase II (1:5)
+  <input type="radio" name="type" value="h2e5" onclick="changeType(2, 5, 4);" >Classic phase I (2:5)
+  </form>
+  <form>
+    <div align="center">
+      <br>
+      <input type="button" name="RESET" value="RESET" style="font-size:12pt;" onclick="resetsoroban('', '');">
+      <input type="button" id="UNDO" name="UNDO" value="<< UNDO" style="font-size:12pt;" disabled="true" onclick="undosoroban('', '');">
+      <input type="button" id="REDO" name="REDO" value="REDO >>" style="font-size:12pt;" disabled="true" onclick="redosoroban('', '');">
+      <br>
+      <br>
+    </div>
+
+    <div align="center" id="sorofield" nowrap=""></div>
+
+  </form>
+  <form action="#" name="Command">
+     <select id="Lesson" onChange="selectLesson();">
+     </select>
+     <input type="file" id="instructionFile" value="" style="font-size:12pt;"><br/>
+     <input type="button" id="retry" value="RETRY" style="font-size:12pt;" onclick="retrySection();">
+      <input type="button" name="GIVEUP" value="Show Answer" style="font-size:12pt;" onclick="showAnswer();"><br/><hr>
+     <input type="button" id="prevPage" value="<< Back" style="font-size:12pt;" onclick="prevSection();">
+     <input type="button" id="nextPage" value="Next >>" style="font-size:12pt;" onclick="nextSection();"><br/>
+       <div style="display:inline-flex;align-items:flex-end;">
+       <textarea id="instructions" rows="10" cols="80" readonly" style="font-size:12pt;">Soroban Textbook Viewer (Ver. 1.0 Type-E).
+<使い方>
+　1. [ファイルを選択]ボタンを押し、.SBKファイルを指定します。
+　2. ドロップダウンボックスから読みたい章をを選択します。
+<Usage>
+　1. Press [Choose File] button and select .sbk file.
+　2. Select Chapter from the drop down box.
+</textarea>
+       <div>&nbsp;&nbsp;<a href="" title="Developed by Masaaki Murakami">開発</a>　村上雅章<br/>&nbsp;&nbsp;<a href="" title="In cooperation with as Prof. Masao Nakagawa (Shiga University),  Thank you so much!">協力</a>　中川雅央（滋賀大学）</div>
+       </div>
+  </form>
+</body>
+</html>
