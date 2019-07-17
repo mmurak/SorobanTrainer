@@ -15,6 +15,7 @@ https://mmurak.github.io/SorobanTrainer/Resources/帰除法解説.sbk
 https://mmurak.github.io/SorobanTrainer/Resources/kijoho100.sbk
 
 謝辞： このウェブアプリは滋賀大学の中川雅央先生が開発された「ウェブそろばん」（ https://www.biwako.shiga-u.ac.jp/sensei/mnaka/ut/soroban.html ）をベースに機能を追加したものです。　公開許諾を頂いた中川先生にこの場を借りて感謝いたします。
+
 --------------------------------------------------------------------------------
 
 Soroban/abacus training web application
