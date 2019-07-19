@@ -24,6 +24,7 @@
 // distributeBucket(content) : Distribute each contents of the selection
 // window.addEventListener() : Internal use
 // selectLesson() : Lesson selector
+// soundToggle() : Sound toggle
 var resourcedir = "./soroban/";
 var imgfilename0 = "soroban0.gif";
 var imgfilename1 = "soroban1.gif";
@@ -47,6 +48,7 @@ var tutorialBuffer = [];
 var pagePointer = 0;
 
 var bucket = [];
+var soundFlag = true;
 
 //
 // Check up for shift key when using Ohtsu mode (suspended bead)
@@ -317,8 +319,10 @@ function changeType(h, e, d) {
 // Play sound
 //
 function playsound(sourcename) {
-  document.getElementById("se_soroban").currentTime = 0;
-  document.getElementById("se_soroban").play();
+  if (soundFlag) {
+    document.getElementById("se_soroban").currentTime = 0;
+    document.getElementById("se_soroban").play();
+  }
 }
 
 //
@@ -566,3 +570,7 @@ function selectLesson() {
   displayTutorialPage();
 }
 
+function soundToggle() {
+  var elem = document.getElementById("soundFlag");
+  soundFlag = elem.checked;
+}

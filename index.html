@@ -18,10 +18,13 @@
   </audio>
 
   <form>
-  <input type="radio" name="type" value="h1e4" onclick="changeType(1, 4, 3);" checked>Modern(1:4)
-  <input type="radio" name="type" value="h1e5" onclick="changeType(1, 5, 3);">Classic phase III (1:5)
-  <input type="radio" name="type" value="h1e5" onclick="changeType(1, 5, 4);">Classic phase II (1:5)
-  <input type="radio" name="type" value="h2e5" onclick="changeType(2, 5, 4);" >Classic phase I (2:5)
+    <input type="radio" name="type" value="h1e4" onclick="changeType(1, 4, 3);" checked>Modern(1:4)
+    <input type="radio" name="type" value="h1e5" onclick="changeType(1, 5, 3);">Classic phase III (1:5)
+    <input type="radio" name="type" value="h1e5" onclick="changeType(1, 5, 4);">Classic phase II (1:5)
+    <input type="radio" name="type" value="h2e5" onclick="changeType(2, 5, 4);" >Classic phase I (2:5)
+    <div   style="float: right;">
+      <input type="checkbox" id="soundFlag" checked="checked" onclick="soundToggle();">Sound
+    </div>
   </form>
   <form>
     <div align="center">
@@ -45,7 +48,7 @@
      <input type="button" id="prevPage" value="<< Back" style="font-size:12pt;" onclick="prevSection();">
      <input type="button" id="nextPage" value="Next >>" style="font-size:12pt;" onclick="nextSection();"><br/>
        <div style="display:inline-flex;align-items:flex-end;">
-       <textarea id="instructions" rows="10" cols="80" readonly" style="font-size:12pt;">Soroban Textbook Viewer (Ver. 1.0 Type-E).
+       <textarea id="instructions" rows="10" cols="80" readonly" style="font-size:12pt;">Soroban Trainer (Ver. 1.01 Type-E).
 <使い方>
 　1. [ファイルを選択]ボタンを押し、.SBKファイルを指定します。
 　2. ドロップダウンボックスから読みたい章をを選択します。
