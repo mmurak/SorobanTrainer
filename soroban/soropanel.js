@@ -13,6 +13,7 @@
 // drawAbacus(numOf5s, numOf1s, numOfDigits, numOfClusters) : Draw abacus into sorofield
 // changeType(h, e, d) : Change type
 // playsound() : Sound effect
+// playsoundClear() : Sound effect
 // displayTutorialPage() : Display tutorial page
 // nextSection() : Next page
 // prevSection() : Previous page
@@ -119,7 +120,7 @@ function resetsoroban() {
   redoBuffer= [];
   document.getElementById("UNDO").disabled=true;
   document.getElementById("REDO").disabled=true;
-  playsound();
+  playsoundClear();
 }
 
 //
@@ -322,6 +323,16 @@ function playsound(sourcename) {
   if (soundFlag) {
     document.getElementById("se_soroban").currentTime = 0;
     document.getElementById("se_soroban").play();
+  }
+}
+
+//
+// Play sound (Clear)
+//
+function playsoundClear(sourcename) {
+  if (soundFlag) {
+    document.getElementById("se_sorobanClear").currentTime = 0;
+    document.getElementById("se_sorobanClear").play();
   }
 }
 
