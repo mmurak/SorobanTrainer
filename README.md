@@ -11,6 +11,9 @@
 《帰除法による割り算方法の解説》
 https://mmurak.github.io/SorobanTrainer/Resources/帰除法解説.sbk
 
+《割算書にある金子四十四割（44を除数とした割り算）の解説》
+https://mmurak.github.io/SorobanTrainer/Resources/金子四十四割.sbk
+
 《帰除法による運指をひたすら練習するための練習問題100題》
 https://mmurak.github.io/SorobanTrainer/Resources/kijoho100.sbk
 
