@@ -5,17 +5,10 @@
 ウェブアプリ本体は以下のURLにアクセスすると動作します。
 → https://mmurak.github.io/SorobanTrainer/index.html
 
-※ なお、上記のウェブアプリからオープン、閲覧できる文書ファイルとして現在、以下の2つを用意しています（「.sbk」という拡張子ですが、中身は一定の形式に従った単なるテキストファイルです）。
+※ なお、上記のウェブアプリからオープン、閲覧できる文書ファイル（「.sbk」という拡張子ですが、中身は一定の形式に従った単なるテキストファイルです）は以下のURLから入手可能です。
 いったんパソコン上に保存したうえで、上記ウェブアプリからオープンしてください。
 
-《帰除法による割り算方法の解説》
-https://mmurak.github.io/SorobanTrainer/Resources/帰除法解説.sbk
-
-《割算書にある金子四十四割（44を除数とした割り算）の解説》
-https://mmurak.github.io/SorobanTrainer/Resources/金子四十四割.sbk
-
-《帰除法による運指をひたすら練習するための練習問題100題》
-https://mmurak.github.io/SorobanTrainer/Resources/kijoho100.sbk
+古式算盤術継承計画： https://mmurak.github.io/
 
 謝辞： このウェブアプリは滋賀大学の中川雅央先生が開発された「ウェブそろばん」（ https://www.biwako.shiga-u.ac.jp/sensei/mnaka/ut/soroban.html ）をベースに機能を追加したものです。　公開許諾を頂いた中川先生にこの場を借りて感謝いたします。
 
