@@ -26,30 +26,31 @@
 // window.addEventListener() : Internal use
 // selectLesson() : Lesson selector
 // soundToggle() : Sound toggle
-var resourcedir = "./soroban/";
-var imgfilename0 = "soroban0.gif";
-var imgfilename1 = "soroban1.gif";
-var imgfilenameU = "sorobanU.gif";
-var imgfilenameL = "sorobanL.gif";
-var imgfilenameB0 = "soroband0.gif";
-var imgfilenameB1 = "soroband1.gif";
-var digitsoroban;
-var heavenBeads;
-var earthBeads;
-var digitclusters;
+let resourcedir = "./soroban/";
+let imgfilename0 = "soroban0.gif";
+let imgfilename1 = "soroban1.gif";
+let imgfilenameU = "sorobanU.gif";
+let imgfilenameL = "sorobanL.gif";
+let imgfilenameB0 = "soroband0.gif";
+let imgfilenameB1 = "soroband1.gif";
+let digitsoroban;
+let heavenBeads;
+let earthBeads;
+let digitclusters;
+let unitsLabel = "百拾里拾町拾間尺寸分　百拾万阡百拾壱分厘";
 
-var shiftkey = false;
+let shiftkey = false;
 
-var undoBuffer = [];
-var redoBuffer = [];
+let undoBuffer = [];
+let redoBuffer = [];
 
-var initialPatternBuffer = [];
-var exitPatternBuffer = [];
-var tutorialBuffer = [];
-var pagePointer = 0;
+let initialPatternBuffer = [];
+let exitPatternBuffer = [];
+let tutorialBuffer = [];
+let pagePointer = 0;
 
-var bucket = [];
-var soundFlag = true;
+let bucket = [];
+let soundFlag = true;
 
 //
 // Check up for shift key when using Ohtsu mode (suspended bead)
@@ -76,10 +77,10 @@ function keyup() {
 // Bead movement
 //
 function mv(name) {
-  var hore = name.substring(0, 2);
-  var indexY = name.substring(2, 4);
-  var indexX = name.substring(4);
-  var img = document.images[name].src;
+  let hore = name.substring(0, 2);
+  let indexY = name.substring(2, 4);
+  let indexX = name.substring(4);
+  let img = document.images[name].src;
   if (img.indexOf(imgfilename0) < 0) {  // if rod then nop
     undoBuffer.push(encodeAbacus());
     document.getElementById("UNDO").disabled=false;
@@ -128,10 +129,10 @@ function resetsoroban() {
 //
 function setsoroban(heavens, earths) {
   playsound();
-  var hvn = heavens.replace(/ +/g, '');
+  let hvn = heavens.replace(/ +/g, '');
   hvn = hvn + 'u'.repeat(digitsoroban);  // benevolent process
   hvn = hvn.split('');
-  var erth = earths.replace(/ +/g, '');
+  let erth = earths.replace(/ +/g, '');
   erth = erth + '0'.repeat(digitsoroban);  // benevolent process
   erth = erth.split('');
   for (i = 0; i < digitsoroban; i++) {
@@ -210,8 +211,8 @@ function redosoroban() {
 // Generate internal-rep from field (/[uVWX]+:[0-5]+/)
 //
 function encodeAbacus() {
-  var heavenWork = '';
-  var earthWork = '';
+  let heavenWork = '';
+  let earthWork = '';
   for (i = 0; i < digitsoroban; i++) {
     common = 'hb' +  ("00" +  i).slice(-2);
     if (heavenBeads == 2) {
@@ -244,16 +245,16 @@ function encodeAbacus() {
 //
 // Draw field (number of heaven beads, number of earth beads, digits, separator digits)
 //
-function drawAbacus(numOf5s, numOf1s, numOfDigits, numOfClusters) {
-  var pointOffset = Math.trunc(numOfDigits / 2)  % numOfClusters;
+function drawAbacus(numOf5s, numOf1s, numOfDigits, numOfClusters, unitsLabel) {
+  let pointOffset = Math.trunc(numOfDigits / 2)  % numOfClusters;
   heavenBeads = numOf5s;
   earthBeads = numOf1s;
   digitsoroban = numOfDigits;
   digitclusters = numOfClusters;
-  var html = "<TABLE BORDER='0' CELLPADDING='0' CELLSPACING='0' STYLE='border:16px ridge brown;background-color:#cccccc;'>\n";
+  let html = "<TABLE BORDER='0' CELLPADDING='0' CELLSPACING='0' STYLE='border:16px ridge brown;background-color:#cccccc;'>\n";
   html += "<TR ALIGN='center' VALIGN='bottom'><TD NOWRAP>\n";
-  for (j = 0; j <= numOf5s; j++) {		// 5 beads  mv("hb[00][0-2]")
-    for (i = 0; i < numOfDigits; i++) {
+  for (let j = 0; j <= numOf5s; j++) {		// 5 beads  mv("hb[00][0-2]")
+    for (let i = 0; i < numOfDigits; i++) {
       html += "<A HREF='JavaScript:mv(";
       html += '"hb' + ("00" +  i).slice(-2) + j + '");';	// i=1(A), i=2(B), ...
       html += "'>";			// <A HREF='JavaScript:mv('hb[00][0-2]');'><IMG NAME='hb[00][0-2]' src='./soroban1' BORDER='0' VSPACE='0' HSPACE='0'></a><BR>.....
@@ -268,20 +269,27 @@ function drawAbacus(numOf5s, numOf1s, numOfDigits, numOfClusters) {
     html += "<BR>\n";
   }
   html += "</TD>\n</TR>\n<TR ALIGN='center' VALIGN='middle'>\n";
-  html += "<TD NOWRAP STYLE='background-color:black;'>";
-  for (i = 0; i < numOfDigits; i++) {
-    html += "<IMG src='";
-    if ((i - pointOffset) % numOfClusters == 0) {
-      html += resourcedir + imgfilenameB1;		// bar with dot
-    } else {
-      html += resourcedir + imgfilenameB0;		// bar without dot
+  if (numOf5s == 2) {
+    beam = makeBeamImage(numOfDigits, unitsLabel);
+    html += "<TD NOWRAP STYLE='background-color:black;'>";
+    html += "<IMG src='" + beam + "' BORDER='0' VSPACE='0' HSPACE='0'>";
+    html += "</TD>\n</TR>\n<TR ALIGN='center' VALIGN='top'>\n";
+  } else {
+    html += "<TD NOWRAP STYLE='background-color:black;'>";
+    for (let i = 0; i < numOfDigits; i++) {
+      html += "<IMG src='";
+      if ((i - pointOffset) % numOfClusters == 0) {
+        html += resourcedir + imgfilenameB1;		// bar with dot
+      } else {
+        html += resourcedir + imgfilenameB0;		// bar without dot
+      }
+      html += "' BORDER='0' VSPACE='0' HSPACE='0'>";
     }
-    html += "' BORDER='0' VSPACE='0' HSPACE='0'>";
+    html += "</TD>\n</TR>\n<TR ALIGN='center' VALIGN='top'>\n";
   }
-  html += "</TD>\n</TR>\n<TR ALIGN='center' VALIGN='top'>\n";
   html += "<TD NOWRAP>";
-  for (j = 0; j <= numOf1s; j++) {					// 1 beads  mv("eb[00][0-4]")
-    for (i = 0; i < numOfDigits; i++) {
+  for (let j = 0; j <= numOf1s; j++) {					// 1 beads  mv("eb[00][0-4]")
+    for (let i = 0; i < numOfDigits; i++) {
       html += "<A HREF='JavaScript:mv(";
       html += '"eb' + ("00" +  i).slice(-2) + j + '");';
       html += "' >";
@@ -299,7 +307,7 @@ function drawAbacus(numOf5s, numOf1s, numOfDigits, numOfClusters) {
 // Index characters
   html += "<TABLE BORDER='0' CELLPADDING='0' CELLSPACING='0'>\n";
   html += "<TR ALIGN='center' VALIGN='top'>\n<TD NOWRAP>\n";
-  for (i = 0; i < numOfDigits; i++) {
+  for (let i = 0; i < numOfDigits; i++) {
     html += "<INPUT TYPE='text' NAME='IDX" + String.fromCharCode(64 + i) + "' SIZE='1' VALUE='" + String.fromCharCode(65+i) + "' MAXLENGTH='1' DISABLED='DISABLED' STYLE='font-size:20px;line-height:100%;width:50px;border:0 solid white;text-align:center;'>";
   }
   html += "</TD>\n</TR>\n</TABLE>\n";
@@ -312,7 +320,7 @@ function drawAbacus(numOf5s, numOf1s, numOfDigits, numOfClusters) {
 //
 function changeType(h, e, d) {
   resetsoroban();
-  drawAbacus(h, e, digitsoroban, d);
+  drawAbacus(h, e, digitsoroban, d, unitsLabel);
   displayTutorialPage();
 }
 
@@ -343,12 +351,12 @@ function displayTutorialPage() {
   //テキストエリアに表示する
   if (tutorialBuffer.length <= pagePointer)
     return;
-  var ts = document.getElementById("instructions");
+  let ts = document.getElementById("instructions");
   ts.value = tutorialBuffer[pagePointer];
   ts.style.height = '1em';
   ts.style.height = ts.scrollHeight + 'px';
-  var pattern = initialPatternBuffer[pagePointer];
-  var pt = pattern.indexOf(':');
+  let pattern = initialPatternBuffer[pagePointer];
+  let pt = pattern.indexOf(':');
   setsoroban(pattern.substr(0, pt), pattern.substr(pt+1));
 }
 
@@ -380,9 +388,9 @@ function prevSection() {
 // Show answer (give up)
 //
 function showAnswer() {
-  var temp = exitPatternBuffer[pagePointer];
-  var hvn = temp.substring(0, temp.indexOf(':'));
-  var erth = temp.substring(temp.indexOf(':')+1);
+  let temp = exitPatternBuffer[pagePointer];
+  let hvn = temp.substring(0, temp.indexOf(':'));
+  let erth = temp.substring(temp.indexOf(':')+1);
   setsoroban(hvn, erth);
 }
 
@@ -400,8 +408,8 @@ function interpret(num) {
   num = num.replace(/ +/g, '');
   num = num + '0'.repeat(digitsoroban);  // benevolent process
   num = num.split('');
-  var hvn = '';
-  var erth = '';
+  let hvn = '';
+  let erth = '';
   for (i = 0; i < digitsoroban; i++) {
     switch (num[i]) {
       case '0' :
@@ -454,15 +462,15 @@ function interpret(num) {
 // Read tutorial file
 //
 function processFile(data) {
-  var lines = data.split(/\r?\n/);
-  var temp = '';
-  var text = '';
+  let lines = data.split(/\r?\n/);
+  let temp = '';
+  let text = '';
   initialPatternBuffer = [];
   exitPatternBuffer = [];
   tutorialBuffer = [];
   lines.forEach(function(line) {
     if (ans = line.match(/^ *TYPE: *(\d+), *(\d+), *(\d+), *(\d+) *$/i)) {
-      drawAbacus(ans[1], ans[2], ans[3], ans[4]);
+      drawAbacus(ans[1], ans[2], ans[3], ans[4], unitsLabel);
       return;
     }
     if (ans = line.match(/^ *INIT:([ 0-9]+)$/i)) {
@@ -508,7 +516,7 @@ function processFile(data) {
   if (text != '') {
     tutorialBuffer.push(text);
   }
-  var ar = [];
+  let ar = [];
   pagePointer = 0;
   ar.push(initialPatternBuffer[pagePointer]);
   ar.push(tutorialBuffer[pagePointer]);
@@ -522,21 +530,21 @@ function removeChildren(obj) {
       obj.removeChild(obj.firstChild);
     }
   }
-  var option = document.createElement("option");
+  let option = document.createElement("option");
   option.setAttribute("value", 0);
   option.innerHTML = "Select Chapter";
   obj.appendChild(option);
 }
 
 function distributeBucket(content) {
-  var select = document.getElementById("Lesson");
+  let select = document.getElementById("Lesson");
   removeChildren(select);
   bucket = [];
-  var lines = content.split(/\r?\n/);
-  var counter = 0;
+  let lines = content.split(/\r?\n/);
+  let counter = 0;
   lines.forEach(function(line) {
     if (ans = line.match(/^\/\/\[(.*)\].*$/)) {
-      var option = document.createElement("option");
+      let option = document.createElement("option");
       counter++;
       bucket[counter] = "";
       option.setAttribute("value", counter);
@@ -553,15 +561,15 @@ function distributeBucket(content) {
 // Event handler for reading tutorial file
 //
 window.addEventListener('DOMContentLoaded', function() {
-    var obj1 = document.getElementById("instructionFile");
+    let obj1 = document.getElementById("instructionFile");
 
     //ダイアログでファイルが選択された時
     obj1.addEventListener("change",function(evt){
 
-        var file = evt.target.files;
+        let file = evt.target.files;
 
         //FileReaderの作成
-        var reader = new FileReader();
+        let reader = new FileReader();
         //テキスト形式で読み込む
         reader.readAsText(file[0]);
 
@@ -575,13 +583,42 @@ window.addEventListener('DOMContentLoaded', function() {
  });
 
 function selectLesson() {
-  var chapter = document.getElementById("Lesson").value;
+  let chapter = document.getElementById("Lesson").value;
   if (chapter == 0)  return;
   chunks = processFile(bucket[chapter]);
   displayTutorialPage();
 }
 
 function soundToggle() {
-  var elem = document.getElementById("soundFlag");
+  let elem = document.getElementById("soundFlag");
   soundFlag = elem.checked;
 }
+
+function makeBeamImage(numOfRods, unitsLabel) {
+    let unitWidth = 50;
+    let unitHeight = 20;
+    let canvas = document.createElement("canvas");
+    canvas.width = numOfRods * unitWidth;
+    canvas.height = unitHeight;
+    let ctx = canvas.getContext("2d");
+    ctx.font = "16px 'Baoli SC', serif";
+    let metric = ctx.measureText("壱");
+    let baseline = unitHeight * 0.7;
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, numOfRods * unitWidth, unitHeight);
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    ctx.lineWidth = 3;
+    ctx.moveTo(0, 0);
+    ctx.lineTo(unitWidth * numOfRods, 0);
+    ctx.moveTo(0, unitHeight);
+    ctx.lineTo(unitWidth * numOfRods, unitHeight);
+    ctx.stroke();
+    for (let i = 0; i < numOfRods; i++) {
+      ctx.fillText(unitsLabel.substr(i, 1), 
+        (i * unitWidth) + (unitWidth / 2) - (ctx.measureText(unitsLabel.substr(i, 1)).width / 2),
+        baseline);
+    }
+    return canvas.toDataURL();
+}
+
