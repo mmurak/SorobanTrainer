@@ -76,7 +76,8 @@ function keyup() {
 //
 // Bead movement
 //
-function mv(name) {
+function mv(name, evt) {
+  evt.preventDefault();
   let hore = name.substring(0, 2);
   let indexY = name.substring(2, 4);
   let indexX = name.substring(4);
@@ -91,7 +92,7 @@ function mv(name) {
       for (i = 0; i <= heavenBeads; i++) {
         putimg(hore + indexY + i, imgfilename1);
       }
-      if ((heavenBeads > 1) && shiftkey && indexX <= 1) {
+      if ((heavenBeads > 1) && evt.shiftKey && indexX <= 1) {
         putimg(hore + indexY + 0, imgfilenameU);
         putimg(hore + indexY + 1, imgfilenameL);
       } else {
@@ -255,9 +256,9 @@ function drawAbacus(numOf5s, numOf1s, numOfDigits, numOfClusters, unitsLabel) {
   html += "<TR ALIGN='center' VALIGN='bottom'><TD NOWRAP>\n";
   for (let j = 0; j <= numOf5s; j++) {		// 5 beads  mv("hb[00][0-2]")
     for (let i = 0; i < numOfDigits; i++) {
-      html += "<A HREF='JavaScript:mv(";
-      html += '"hb' + ("00" +  i).slice(-2) + j + '");';	// i=1(A), i=2(B), ...
-      html += "'>";			// <A HREF='JavaScript:mv('hb[00][0-2]');'><IMG NAME='hb[00][0-2]' src='./soroban1' BORDER='0' VSPACE='0' HSPACE='0'></a><BR>.....
+      html += "<A HREF='#' onclick='mv(";
+      html += '"hb' + ("00" +  i).slice(-2) + j + '",event);return false;';
+      html += "'>";
       html += "<IMG NAME='hb" + ("00" +  i).slice(-2) + j + "' src='";
       if (j < numOf5s) {
         html += resourcedir + imgfilename1;		//tama
@@ -290,8 +291,8 @@ function drawAbacus(numOf5s, numOf1s, numOfDigits, numOfClusters, unitsLabel) {
   html += "<TD NOWRAP>";
   for (let j = 0; j <= numOf1s; j++) {					// 1 beads  mv("eb[00][0-4]")
     for (let i = 0; i < numOfDigits; i++) {
-      html += "<A HREF='JavaScript:mv(";
-      html += '"eb' + ("00" +  i).slice(-2) + j + '");';
+      html += "<A HREF='#' onclick='mv(";
+      html += '"eb' + ("00" +  i).slice(-2) + j + '",event);return false;';
       html += "' >";
       html += "<IMG NAME='eb" + ("00" +  i).slice(-2) + j + "' src='";
       if (j > 0) {
